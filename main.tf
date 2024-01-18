@@ -10,6 +10,7 @@ locals {
   webhook_count   = local.webhook_enabled ? 1 : 0
   webhook_secret  = join("", random_password.webhook_secret[*].result)
   webhook_url     = join("", aws_codepipeline_webhook.default[*].url)
+  full_repository_id = format("%s/%s", var.repo_owner, var.repo_name)
 }
 
 resource "aws_s3_bucket" "default" {
@@ -263,17 +264,15 @@ resource "aws_codepipeline" "default" {
     action {
       name             = "Source"
       category         = "Source"
-      owner            = "ThirdParty"
-      provider         = "GitHub"
+      owner            = "AWS"
+      provider         = "CodeStarSourceConnection"
       version          = "1"
-      output_artifacts = ["code"]
+      output_artifacts = ["source_output"]
 
       configuration = {
-        OAuthToken           = var.github_oauth_token
-        Owner                = var.repo_owner
-        Repo                 = var.repo_name
-        Branch               = var.branch
-        PollForSourceChanges = var.poll_source_changes
+        ConnectionArn = var.codestar_connection_arn
+        FullRepositoryId = local.full_repository_id
+        BranchName = var.branch
       }
     }
   }
