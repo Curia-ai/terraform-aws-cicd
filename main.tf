@@ -5,11 +5,11 @@ data "aws_region" "default" {
 }
 
 locals {
-  enabled         = module.this.enabled
-  webhook_enabled = local.enabled && var.webhook_enabled ? true : false
-  webhook_count   = local.webhook_enabled ? 1 : 0
-  webhook_secret  = join("", random_password.webhook_secret[*].result)
-  webhook_url     = join("", aws_codepipeline_webhook.default[*].url)
+  enabled            = module.this.enabled
+  webhook_enabled    = local.enabled && var.webhook_enabled ? true : false
+  webhook_count      = local.webhook_enabled ? 1 : 0
+  webhook_secret     = join("", random_password.webhook_secret[*].result)
+  webhook_url        = join("", aws_codepipeline_webhook.default[*].url)
   full_repository_id = format("%s/%s", var.repo_owner, var.repo_name)
 }
 
@@ -270,9 +270,9 @@ resource "aws_codepipeline" "default" {
       output_artifacts = ["source_output"]
 
       configuration = {
-        ConnectionArn = var.codestar_connection_arn
+        ConnectionArn    = var.codestar_connection_arn
         FullRepositoryId = local.full_repository_id
-        BranchName = var.branch
+        BranchName       = var.branch
       }
     }
   }
