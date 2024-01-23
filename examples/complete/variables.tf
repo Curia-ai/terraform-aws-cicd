@@ -3,9 +3,9 @@ variable "region" {
   description = "AWS region"
 }
 
-variable "codestar_connection_arn" {
+variable "github_oauth_token" {
   type        = string
-  description = "The ARN of the connection to the repository."
+  description = "GitHub Oauth Token"
 }
 
 variable "repo_owner" {
@@ -21,6 +21,11 @@ variable "repo_name" {
 variable "branch" {
   type        = string
   description = "Branch of the GitHub repository, _e.g._ `master`"
+}
+
+variable "poll_source_changes" {
+  type        = bool
+  description = "Periodically check the location of your source content and run the pipeline if changes are detected"
 }
 
 variable "environment_variables" {
