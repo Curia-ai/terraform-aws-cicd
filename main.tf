@@ -6,8 +6,8 @@ data "aws_region" "default" {
 
 locals {
   enabled            = module.this.enabled
-  webhook_enabled    = local.enabled && var.webhook_enabled ? true : false
-  webhook_count      = local.webhook_enabled ? 1 : 0
+  webhook_enabled    = false
+  webhook_count      = 0
   webhook_secret     = join("", random_password.webhook_secret.*.result)
   webhook_url        = join("", aws_codepipeline_webhook.default.*.url)
   full_repository_id = format("%s/%s", var.repo_owner, var.repo_name)
