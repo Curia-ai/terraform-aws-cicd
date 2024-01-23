@@ -53,12 +53,6 @@ variable "buildspec" {
   description = " Declaration to use for building the project. [For more info](http://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html)"
 }
 
-variable "poll_source_changes" {
-  type        = bool
-  default     = true
-  description = "Periodically check the location of your source content and run the pipeline if changes are detected"
-}
-
 variable "privileged_mode" {
   type        = bool
   default     = false
