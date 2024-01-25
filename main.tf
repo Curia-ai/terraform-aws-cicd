@@ -151,6 +151,13 @@ data "aws_iam_policy_document" "s3" {
     ]
 
     effect = "Allow"
+    
+  }
+
+  statement {
+    effect    = "Allow"
+    actions   = ["codestar-connections:UseConnection"]
+    resources = [var.codestar_connection_arn]
   }
 
   dynamic "statement" {
