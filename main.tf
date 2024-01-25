@@ -267,7 +267,7 @@ resource "aws_codepipeline" "default" {
       owner            = "AWS"
       provider         = "CodeStarSourceConnection"
       version          = "1"
-      output_artifacts = ["source_output"]
+      output_artifacts = ["code"]
 
       configuration = {
         ConnectionArn    = var.codestar_connection_arn
